@@ -14,9 +14,21 @@
             <%= image_tag @book.user.get_profile_image(100, 100) %><br>
             <%= @book.user.name %>
             <% end %>
-          </td>
+          </td> 
           <td><%= link_to @book.title, @book %></td>
           <td><%= @book.body %></td>
+          <td>
+            <% if current_user.already_favorited?(@book) %>
+              <%= link_to book_favorite_path(@book), method: :delete do %>
+              <i class="fas fa-heart"></i>
+              <% end %>
+            <% else %>
+              <%= link_to book_favorite_path(@book), method: :create do %>
+            <i class="far fa-heart"></i>
+             <% end %>
+            <% end %>
+            <%= @book.favorites.count %>
+          </td>
           <% if @user.id == current_user.id %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
             <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>

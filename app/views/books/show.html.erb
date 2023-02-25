@@ -14,7 +14,7 @@
             <%= image_tag @book.user.get_profile_image(100, 100) %><br>
             <%= @book.user.name %>
             <% end %>
-          </td> 
+          </td>
           <td><%= link_to @book.title, @book %></td>
           <td><%= @book.body %></td>
           <td>
@@ -23,23 +23,39 @@
               <i class="fas fa-heart"></i>
               <% end %>
             <% else %>
-              <%= link_to book_favorites_path(@book), method: :create do %>
+              <%= link_to book_favorites_path(@book), method: :post do %>
             <i class="far fa-heart"></i>
              <% end %>
             <% end %>
             <%= @book.favorites.count %>
           </td>
-          <% if @user.id == current_user.id %>
+          <td><%= "コメント数:#{@book.post_comments.count}" %></td>
+             <% if @user.id == current_user.id %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
             <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
             <% else %>
             <td></td>
             <td></td>
             <% end %>
-        </tr>
+          </tr>
       </table>
-      
-      
+            
+              <% @book.post_comments.each do |post_comment| %>
+              <div>
+                <%= image_tag post_comment.user.get_profile_image(50, 50) %>
+                <%= post_comment.user.name %>
+                <%= post_comment.comment %>
+              <% if post_comment.user == current_user %>
+               <%= link_to "Destroy", book_post_comments_path(post_comment.book, post_comment), method: :delete, class: "btn btn-sm btn-danger" %>
+               <% end %>
+              <% end %>
+            </div>
+            <div>
+           <%= form_with model:[@book, @post_comment] do |f| %>
+             <%= f.text_area :comment, row: '5', class:"form-control form-control-lg" %>
+             <%= f.submit "送信", class:"mt-2" %>
+           <% end %>
+          </div>
     </div>
   </div>
 </div>

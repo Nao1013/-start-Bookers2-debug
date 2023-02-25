@@ -5,11 +5,12 @@ class PostCommentsController < ApplicationController
     comment = current_user.post_comments.new(post_comment_params)
     comment.book_id = book.id
     comment.save
-    redirect_to book_path(book)
+    redirect_back(fallback_location: root_path)
   end
   
   def destroy
-    
+    PostComment.find(params[:id]).destroy
+    redirect_back(fallback_location: root_path)
   end
   
   private

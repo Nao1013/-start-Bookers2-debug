@@ -39,18 +39,17 @@
             <% end %>
           </tr>
       </table>
-            
+             <div>
               <% @book.post_comments.each do |post_comment| %>
-              <div>
+             
                 <%= image_tag post_comment.user.get_profile_image(50, 50) %>
                 <%= post_comment.user.name %>
                 <%= post_comment.comment %>
               <% if post_comment.user == current_user %>
-               <%= link_to "Destroy", book_post_comments_path(post_comment.book, post_comment), method: :delete, class: "btn btn-sm btn-danger" %>
+               <%= link_to "Destroy", book_post_comment_path(post_comment.book, post_comment), method: :delete, class: "btn btn-sm btn-danger" %>
                <% end %>
               <% end %>
-            </div>
-            <div>
+            
            <%= form_with model:[@book, @post_comment] do |f| %>
              <%= f.text_area :comment, row: '5', class:"form-control form-control-lg" %>
              <%= f.submit "送信", class:"mt-2" %>

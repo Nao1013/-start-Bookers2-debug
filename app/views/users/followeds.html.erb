@@ -1,0 +1,23 @@
+<h1>Follower Users</h1>
+<table>
+  <thead>
+    <tr>
+      <th>image</th>
+      <th>name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= image_tag user.get_profile_image(50, 50) %></td>
+      <td><%= user.name %></td>
+      <td><%= user.followers %></td>
+      <td><%= user.followeds %></td>
+      <td><%= link_to 'Show', user %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

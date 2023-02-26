@@ -8,6 +8,13 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   
+# フォロー/フォロワーのアソシエーション
+  has_many :relationships, foreign_key: :follower_id, dependent: :destroy  # フォローする側
+  has_many :followers, through: :relationships, source: :followed
+  
+  has_many :reverse_of_relarionships, class_name: "Relationship", foreign_key: :followed_id, dependent: :destroy # フォローされる側
+  has_many :followeds, through: :reverse_of_relarionships, source: :follower
+ 
   has_one_attached :profile_image
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true

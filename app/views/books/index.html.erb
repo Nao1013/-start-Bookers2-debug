@@ -1,5 +1,9 @@
+<div class="d-flex justify-content-center">
+  <%= render 'searches/form' %>
+</div>
+
+
 <div class='container px-5 px-sm-0'>
-  
    <% if @book_new.errors.any? %>
   <%= @book_new.errors.count %>件のエラーが発生しました
   <ul>
@@ -16,9 +20,6 @@
       <%= render 'form', book: @book %>
     </div>
     <div class='col-md-8 offset-md-1'>
-      
-      <%= render 'searches/form' %>
-      
       <h2>Books</h2>
       <%= render 'index', books: @books%>
     </div>

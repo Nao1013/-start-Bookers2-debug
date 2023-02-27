@@ -1,7 +1,8 @@
+<div class="d-flex justify-content-center">
+  <%= render 'searches/form' %>
+</div>
+
 <div class='container px-5 px-sm-0'>
-  
-  
-  
   <div class='row'>
     <div class='col-md-3'>
       <h2>User info</h2>
@@ -11,9 +12,6 @@
       <%= render 'books/form', book: @book %>
       </div>
      <div class='col-md-8 offset-md-1'>
-       
-      <%= render 'searches/form' %>
-       
       <h2>Users</h2>
       <%= render 'index',users: @users %>
       </div>

@@ -32,7 +32,7 @@ class User < ApplicationRecord
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
   
-   def favorited_by?(current_user)
-     self.favorites.exists?(book_id: book.id)
-   end
+  # def favorited_by?(current_user)
+    # self.favorites.exists?(book_id: book.id)
+  # end
 end

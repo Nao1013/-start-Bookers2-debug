@@ -8,6 +8,11 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   
+  # チャット
+  has_many :user_rooms, dependent: :destroy
+  has_many :chats, dependent: :destroy
+  has_many :rooms, through: :user_rooms
+  
 # フォロー/フォロワーのアソシエーション
   has_many :relationships, foreign_key: :follower_id, dependent: :destroy  # フォローする側
   has_many :followers, through: :relationships, source: :followed

@@ -9,16 +9,16 @@ class User < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   
   # チャット
-  has_many :user_rooms, dependent: :destroy
-  has_many :chats, dependent: :destroy
+  has_many :user_rooms
+  has_many :chats
   has_many :rooms, through: :user_rooms
   
 # フォロー/フォロワーのアソシエーション
-  has_many :relationships, foreign_key: :follower_id, dependent: :destroy  # フォローする側
-  has_many :followers, through: :relationships, source: :followed
+  has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy  # フォローする側
+  has_many :followings, through: :relationships, source: :followed
   
-  has_many :reverse_of_relarionships, class_name: "Relationship", foreign_key: :followed_id, dependent: :destroy # フォローされる側
-  has_many :followeds, through: :reverse_of_relarionships, source: :follower
+  has_many :reverse_of_relarionships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy # フォローされる側
+  has_many :followers, through: :reverse_of_relarionships, source: :follower
   
   def is_followed_by?(user)
     reverse_of_relarionships.find_by(follower_id: user.id).present?
@@ -37,7 +37,16 @@ class User < ApplicationRecord
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
   
-  # def favorited_by?(current_user)
-    # self.favorites.exists?(book_id: book.id)
-  # end
+  def follow(user)
+    relationships.create(followed_id: user.id)
+  end
+  
+  def unfollow(user)
+    relationships.find_by(followed_id: user.id).destroy
+  end
+  
+  def following?(user)
+    followings.include?(user)
+  end
+  
 end

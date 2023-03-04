@@ -3,24 +3,21 @@ class BooksController < ApplicationController
   def show
     @books = Book.new
     @book = Book.find(params[:id])
+    impressionist(@book, nil, unique: [:ip_address])
     @user = @book.user
     @post_comment = PostComment.new
   end
 
   def index
-     to = Time.current.at_end_of_day
-    from = (to - 6.day).at_beginning_of_day
-    @books = Book.includes(:favorites_users).sort {|a,b| 
-      b.favorites_users.includes(:favorites).where(created_at: from...to).size <=>
-      a.favorites_users.includes(:favorites).where(created_at: from...to).size
-    }
-    # @books = Book.all
+    @books = Book.all
     @book_new = Book.new
+    @user = current_user
   end
 
   def create
     @book = Book.new(book_params)
     @book.user_id = current_user.id
+    @user = current_user
     if @book.save
       redirect_to book_path(@book), notice: "You have created book successfully."
     else
@@ -61,5 +58,12 @@ class BooksController < ApplicationController
 
   def book_params
     params.require(:book).permit(:title, :body)
+  end
+  
+  def editing_user
+    book = Book.find(params[:id])
+    if book.user != current_user
+      redirect_to books_path
+    end
   end
 end

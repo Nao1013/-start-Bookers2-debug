@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :ensure_correct_user, only: [:edit, :update]
   
 
@@ -12,16 +13,6 @@ class UsersController < ApplicationController
     @users = User.all
     @book = Book.new
     
-  end
-  
-  def followers
-    user = User.find(params[:id])
-    @users = user.followers
-  end
-  
-  def followeds
-     user = User.find(params[:id])
-    @users = user.followeds
   end
 
   def edit
@@ -53,4 +44,6 @@ class UsersController < ApplicationController
       redirect_to user_path(current_user)
     end
   end
+  
+  
 end

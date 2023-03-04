@@ -13,9 +13,6 @@
         <td><%= user.name %></td>
         <td>
           <%= render "relationships/btn", user: user %>
-      	    <%# if current_user != user && current_user.followers?(user) && user.follower?(current_user) %>
-      	      <%#= link_to 'chatを始める', chat_path(user.id), cass: "ml-3" %>
-      	    <% #end %>
         </td>
         <td><%= link_to 'Show', user, class: "user_#{user.id}" %></td>
       </tr>

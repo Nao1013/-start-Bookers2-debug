@@ -9,18 +9,19 @@
 	  <th><%= user.introduction %></th>
   </tr>
   <tr>
-  <th><%= render "relationships/btn", user: user %></th>
+  <th><%= render "relationships/btn", user: user %>
+   <%# 相互フォロー限定DM %>
+	    <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
+	      <%= render "chats/chat_button", user: user %>
+	    <% end %>
+  </th>
   </tr>
 </table>
 
-	    <%# 相互フォロー限定DM %>
-	    <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
-	      <%= render 'chats/chat_button' %><%# チャットボタン %>
-	    <% end %>
+	   
 
 <div class='row'>
   <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
-  	<td><%= render "relationships/btn", user: user %></td>
   <% else %>
     <%= link_to edit_user_path(user.id), class: "btn btn-outline-secondary btn-block" do %>
       <i class="fas fa-user-cog"></i>

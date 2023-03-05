@@ -1,5 +1,6 @@
 <table class='table'>
   <tr><%= image_tag user.get_profile_image(100, 100) %></tr>
+  <thead>
   <tr>
 	  <th>name</th>
 	  <th><%= user.name %></th>
@@ -8,17 +9,19 @@
 	  <th>introduction</th>
 	  <th><%= user.introduction %></th>
   </tr>
+  </thead>
+  <tbody>
   <tr>
-  <th><%= render "relationships/btn", user: user %>
-   <%# 相互フォロー限定DM %>
+  <td><%= render "relationships/btn", user: user %> </th>
+  <td>
+    <%# 相互フォロー限定DM %>
 	    <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
 	      <%= render "chats/chat_button", user: user %>
 	    <% end %>
-  </th>
+  </td>
   </tr>
+  </tbody>
 </table>
-
-	   
 
 <div class='row'>
   <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>

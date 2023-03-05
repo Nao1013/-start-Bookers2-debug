@@ -8,6 +8,9 @@ class Book < ApplicationRecord
   # いいねランキング
   has_many :week_favorites, -> { wehere(created_at: ((Time.current.at_end_of_day - 6.day).at_beginning_of_day)..(Time.current.at_end_of_day)) }, class_name: 'Favorite'
   
+  # 閲覧数
+  has_many :view_counts, dependent: :destroy
+  
   validates :title,presence:true
   validates :body,presence:true,length:{maximum:200}
   

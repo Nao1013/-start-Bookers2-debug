@@ -13,6 +13,9 @@ class User < ApplicationRecord
   has_many :chats
   has_many :rooms, through: :user_rooms
   
+  # 閲覧数
+  has_many :view_counts, dependent: :destroy
+  
 # フォロー/フォロワーのアソシエーション
   has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy  # フォローする側
   has_many :followings, through: :relationships, source: :followed

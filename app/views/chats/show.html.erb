@@ -1,18 +1,18 @@
 <h1 id="room" data-room="<%= @room.id %>" data-user="<%= current_user.id %>">
   <%= @user.name %>さんとのチャット</h1>
   
-<!--<div class="message" style="width: 400px;">-->
-  <% @chat.each do |chat| %>
+<div class="message" style="width: 400px;">
+  <% @chats.each do |chat| %>
     <% if chat.user.id == current_user.id %>
       <p style="text-align: right;"><%= chat.message %></p>
     <% else %>
       <p style="text-align: left;"><%= chat.message %></p>
     <% end %>
   <% end %>
-<!--</div>-->
+</div>
 
 <!--<div class="errors">-->
-  <%#= render "layouts/errors", obj: @chat %>-->
+  <%#= render "layouts/errors", obj: @chat %>
 <!--</div>-->
 
 <%= form_with model:@chat, data: {remote: true} do |f| %>

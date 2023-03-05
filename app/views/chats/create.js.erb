@@ -1,2 +1,8 @@
-$('.massage').append("<p style='text-align: right;'><%= @chat.massage %></p>");
+$('.message').append("<p style='text-align: right;'><%= @chat.message %></p>");
 $('input[type=text]').val("")
+$(".message").html("<%= escape_javascript(render 'chat', chats: @chats) %>")
+$(".submit").keydown(function() {
+  if( event.keyCode == 13 ) {
+    $(".btn").click();
+  }
+});

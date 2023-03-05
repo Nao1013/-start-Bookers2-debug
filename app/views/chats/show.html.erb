@@ -2,13 +2,7 @@
   <%= @user.name %>さんとのチャット</h1>
   
 <div class="message" style="width: 400px;">
-  <% @chats.each do |chat| %>
-    <% if chat.user.id == current_user.id %>
-      <p style="text-align: right;"><%= chat.message %></p>
-    <% else %>
-      <p style="text-align: left;"><%= chat.message %></p>
-    <% end %>
-  <% end %>
+  <%= render 'chat', chats: @chats %>
 </div>
 
 <!--<div class="errors">-->
@@ -18,4 +12,6 @@
 <%= form_with model:@chat, data: {remote: true} do |f| %>
   <%= f.text_field :message %>
   <%= f.hidden_field :room_id %>
+  <div style="display:none;" class="submit">
+  <%= f.submit :class=>"btn" %></div>
 <% end %>

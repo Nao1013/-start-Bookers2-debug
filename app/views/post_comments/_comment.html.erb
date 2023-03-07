@@ -1,0 +1,4 @@
+<%= form_with (model:[book, post_comment]) do |f| %>
+  <%= f.text_area :comment, row: '5', class:"form-control form-control-lg" %>
+  <%= f.submit "送信", class:"mt-2" %>
+<% end %>

@@ -1,2 +1,4 @@
-$('.comment').html("<%= j(render "post_comments/comment", book: @book, post_comment: @post_comment) %>");
-$("textarea").val("")
+$('.comment').html("<%= j(render "post_comments/post", book: @comment.book) %>");
+$("textarea").val("");
+$('#exampleModal').modal('hide');
+$('.count').html("<%= j(render "post_comments/count", book: @comment.book) %>");

@@ -24,7 +24,7 @@
           <td class=<%= "favorite-" + @book.id.to_s %> >
             <%= render 'favorites/favorite', book: @book %>
           </td>
-          <td>
+          <td class="count">
             <%= render 'post_comments/count', book: @book %>
           </td>
              <% if @user.id == current_user.id %>
@@ -37,13 +37,14 @@
             <td><%= "閲覧数:#{@book.view_counts.count}" %></td>
           </tr>
       </table>
-             <div>
-              <%= render 'post_comments/post', book: @book %>
-              </div>
-              <!--コメント送信欄-->
-            <div class="comment">
-           <%= render "post_comments/comment", book: @book, post_comment: @post_comment %>
-          </div>
+     
+    <div class="comment">
+      <%= render 'post_comments/post', book: @book %>
+    </div>
+    <!--コメント送信欄-->
+    <div class="mt-2">
+      <%= render "post_comments/comment", book: @book, post_comment: @post_comment %>
+    </div>
     </div>
   </div>
 </div>

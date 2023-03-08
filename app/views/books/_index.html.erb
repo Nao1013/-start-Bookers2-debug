@@ -8,7 +8,6 @@
     </tr>
   </thead>
   <tbody>
-    <%# books.each.with_index(1) do |book| %>
     <% books.each do |book| %>
       <tr>
         <td><%= link_to(book.user) do %>
@@ -30,6 +29,56 @@
         <td><%= "閲覧数：#{book.view_counts.count}" %></td>
       </tr>
       <% end %>
-      <%# end %>
   </tbody>
 </table>
+
+<div class="table_width">
+  <table class="table table-bordered">
+    <h3>投稿数の前日比・前週比</h3>
+    <thead>
+      <tr>
+        <th>今日の投稿数</th>
+        <th>前日の投稿数</th>
+        <th>前日比</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @today_book.count %></td>
+        <td><%= @yesterday_book.count %></td>
+        <td>
+          <% if @yesterday_book.count == 0 %>
+           前日の投稿はありません
+          <% else %>
+           <td><% @the_day_before = @today_book.count / @yesterday_book.count.to_f %>
+           <%= (@the_day_before * 100).round %>%</td>
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>今週の投稿数</th>
+        <th>前週の投稿数</th>
+        <th>前週比</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @this_week_book.count %></td>
+        <td><%= @last_week_book.count %></td>
+        <td>
+          <% if @last_week_book.count == 0 %>
+           前週の投稿はありません
+          <% else %>
+           <td><% @the_week_before = @this_week_book.count / @last_week_book.count.to_f %>
+           <%= (@the_week_before * 100).round %>%</td>
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

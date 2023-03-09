@@ -58,4 +58,11 @@
       </tr>
     </tbody>
   </table>
+  
+ <h5 class="text-center">７日間の投稿数の比較</h5>
+
+<canvas id="myChart" width="200" height="100"> </canvas>
+
+<%= line_chart @books.group(:created_at).count %>
+
 </div>
